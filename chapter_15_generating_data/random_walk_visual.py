@@ -36,7 +36,7 @@ class RandomWalkVisualize:
 
             plt.show()
 
-            keep_running = input("Make another walk? (y/n): ")
+            keep_running = input("Make another walk as scatter? (y/n): ")
             if keep_running == 'n':
                 break
     
@@ -61,7 +61,7 @@ class RandomWalkVisualize:
 
             plt.show()
 
-            keep_running = input("Make another walk? (y/n): ")
+            keep_running = input("Make another walk as line? (y/n): ")
             if keep_running == 'n':
                 break
 
