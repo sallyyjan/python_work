@@ -1,1 +1,1 @@
-C:\Users\sally\Desktop\python_work\chapter_15_generating_data\__pycache__
+\chapter_15_generating_data\__pycache__\**
