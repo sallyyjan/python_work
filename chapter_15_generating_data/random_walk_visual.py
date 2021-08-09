@@ -5,14 +5,14 @@ from random_walk import RandomWalk
 # Keep making new walks, as long as program is active.
 while True:
     # Make a random walk
-    rw = RandomWalk()
+    rw = RandomWalk(num_points=50_000)
     rw.fill_walk()
 
     # Plot the points in the walk
     plt.style.use('classic')
     fig, ax = plt.subplots()
     point_numbers = range(rw.num_points)
-    ax.scatter(rw.x_values, rw.y_values, s=15, c=point_numbers, 
+    ax.scatter(rw.x_values, rw.y_values, s=1, c=point_numbers, 
         cmap=plt.cm.Blues, edgecolors='none')
     
     # Emphasize the first and end points.
