@@ -19,14 +19,15 @@ def find_column_numbers(*column_names, reader):
 while True:
     filename = input("Enter the relative path of the dataset you want to " 
         "visulalize: ")
-        
+    location = ''
+
     try:
         with open(filename) as f:
             reader = csv.reader(f)
             col_nums = find_column_numbers('NAME', 'DATE', 'TMAX', 'TMIN',
                 reader=reader)
             
-            # Get dates, and max and min temperatures
+            # Get dates, and max and min temperatures, and location
             highs, lows, dates = [], [], []
             for row in reader:
                 date = datetime.strptime(row[col_nums['DATE']], '%Y-%m-%d')
@@ -39,6 +40,9 @@ while True:
                     highs.append(high)
                     lows.append(low)
                     dates.append(date)
+            
+            location = row[col_nums['NAME']]
+            
 
     except FileNotFoundError:
         print(f"your file {filename} cannot be found.")
@@ -52,7 +56,7 @@ while True:
     plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
     # Format plot
-    plt.title("Daily high and low temperatures - 2018\nSitka, AK", fontsize=20)
+    plt.title(f"Daily high and low temperatures - 2018\n{location}", fontsize=20)
     plt.xlabel('', fontsize=16)
     fig.autofmt_xdate()
     plt.ylabel('Temperature (F)', fontsize=16)
