@@ -24,7 +24,7 @@ ax.plot(dates, lows, c='blue', linewidth=1, alpha=0.5)
 plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
 # Format plot
-plt.title("Daily high and low temperatures - 2018\nSitka, AK", fontsize=24)
+plt.title("Daily high and low temperatures - 2018\nSitka, AK", fontsize=20)
 plt.xlabel('', fontsize=16)
 fig.autofmt_xdate()
 plt.ylabel('Temperature (F)', fontsize=16)
