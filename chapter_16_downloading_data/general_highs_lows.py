@@ -3,6 +3,18 @@ from datetime import datetime
 
 import matplotlib.pyplot as plt
 
+def find_column_numbers(*column_names, reader):
+    header_row = next(reader)
+    print(header_row)
+    column_numbers = {}
+
+    for name in column_names:
+        column_number = header_row.index(name)
+        column_numbers[name] = column_number
+    
+    print(column_numbers)
+
+
 while True:
     filename = input("Enter the relative path of the dataset you want to " 
         "visulalize: ")
@@ -10,9 +22,8 @@ while True:
     try:
         with open(filename) as f:
             reader = csv.reader(f)
-            header_row = next(reader)
-            print(header_row)
-
+            find_column_numbers('NAME', 'DATE', 'TMAX', 'TMIN', reader=reader)
+            
             # Get dates, and max and min temperatures
             highs, lows, dates = [], [], []
             for row in reader:
@@ -26,7 +37,7 @@ while True:
                     highs.append(high)
                     lows.append(low)
                     dates.append(date)
-                    
+
     except FileNotFoundError:
         print(f"your file {filename} cannot be found.")
         continue
