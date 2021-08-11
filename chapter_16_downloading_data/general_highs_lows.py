@@ -15,8 +15,8 @@ def find_column_numbers(*column_names, reader):
     print(column_numbers)
     return column_numbers
 
-
-while True:
+keep_going = 'y'
+while keep_going == 'y':
     filename = input("Enter the relative path of the dataset you want to " 
         "visulalize: ")
     location = ''
@@ -46,20 +46,22 @@ while True:
 
     except FileNotFoundError:
         print(f"your file {filename} cannot be found.")
-        continue
 
-    # Plot the max and min temperatures
-    plt.style.use('seaborn')
-    fig, ax = plt.subplots()
-    ax.plot(dates, highs, c='red', linewidth=1, alpha=0.5)
-    ax.plot(dates, lows, c='blue', linewidth=1, alpha=0.5)
-    plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+    else:
+        # Plot the max and min temperatures
+        plt.style.use('seaborn')
+        fig, ax = plt.subplots()
+        ax.plot(dates, highs, c='red', linewidth=1, alpha=0.5)
+        ax.plot(dates, lows, c='blue', linewidth=1, alpha=0.5)
+        plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
-    # Format plot
-    plt.title(f"Daily high and low temperatures - 2018\n{location}", fontsize=20)
-    plt.xlabel('', fontsize=16)
-    fig.autofmt_xdate()
-    plt.ylabel('Temperature (F)', fontsize=16)
-    plt.tick_params(axis='both', which='major', labelsize=16)
+        # Format plot
+        plt.title(f"Daily high and low temperatures - 2018\n{location}", fontsize=20)
+        plt.xlabel('', fontsize=16)
+        fig.autofmt_xdate()
+        plt.ylabel('Temperature (F)', fontsize=16)
+        plt.tick_params(axis='both', which='major', labelsize=16)
 
-    plt.show()
+        plt.show()
+
+    keep_going = input("Do you want to visualize another dataset? (y/n) ")
