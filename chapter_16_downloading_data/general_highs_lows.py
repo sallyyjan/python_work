@@ -13,6 +13,7 @@ def find_column_numbers(*column_names, reader):
         column_numbers[name] = column_number
     
     print(column_numbers)
+    return column_numbers
 
 
 while True:
@@ -22,15 +23,16 @@ while True:
     try:
         with open(filename) as f:
             reader = csv.reader(f)
-            find_column_numbers('NAME', 'DATE', 'TMAX', 'TMIN', reader=reader)
+            col_nums = find_column_numbers('NAME', 'DATE', 'TMAX', 'TMIN',
+                reader=reader)
             
             # Get dates, and max and min temperatures
             highs, lows, dates = [], [], []
             for row in reader:
-                date = datetime.strptime(row[2], '%Y-%m-%d')
+                date = datetime.strptime(row[col_nums['DATE']], '%Y-%m-%d')
                 try:
-                    high = int(row[4])
-                    low = int(row[5])
+                    high = int(row[col_nums['TMAX']])
+                    low = int(row[col_nums['TMIN']])
                 except ValueError:
                     print(f"Missing data for {date}")
                 else:
