@@ -22,6 +22,8 @@ for eq_dict in all_eq_dicts:
     lats.append(eq_dict['geometry']['coordinates'][1])
     hover_text.append(eq_dict['properties']['title'])
 
+data_title = all_eq_data['metadata']['title']
+
 # Map the earthquakes.
 data = [{
     'type': 'scattergeo',
@@ -36,7 +38,7 @@ data = [{
         'colorbar': {'title': "Magnitude"},
     },
 }]
-my_layout = Layout(title='Global Earthquakes')
+my_layout = Layout(title=data_title)
 
 fig = {'data': data, 'layout': my_layout}
 offline.plot(fig, filename='global_earthquakes.html')
