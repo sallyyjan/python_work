@@ -4,6 +4,8 @@ import requests
 
 from requests.models import Response
 
+from plotly import offline
+
 # Make API call and store response.
 url = "https://hacker-news.firebaseio.com/v0/topstories.json"
 r = requests.get(url)
@@ -35,10 +37,51 @@ for submission_id in submission_ids[:30]:
 
     submission_dicts.append(submission_dict)
 
+# Sort based on 'comments' value
 submission_dicts = sorted(submission_dicts, key=itemgetter('comments'), 
-                            reverse=True)
+                            reverse=True) 
 
+# Print results
 for submission_dict in submission_dicts:
     print(f"\nTitle: {submission_dict['title']}")
     print(f"Discussion link: {submission_dict['hn_link']}")
     print(f"Comments: {submission_dict['comments']}")
+
+# Extract information to visualize
+links, comments = [], []
+for submission_dict in submission_dicts:
+    link = f"<a href='{submission_dict['hn_link']}'>{submission_dict['title']}<\a>"
+    links.append(link)
+
+    comments.append(submission_dict['comments'])
+
+
+# Create visualization
+data = [{
+    'type': 'bar',
+    'x': links,
+    'y': comments,
+    'hovertext': links,
+    'marker': {
+        'color': 'rgb(60, 100, 150)',
+        'line': {'width': 1.5, 'color': 'rgb(25,25,25)'}
+    },
+    'opacity': 0.6,
+}]
+my_layout = {
+    'title': 'Top 30 Most-Commented Submissions on Hacker News',
+    'titlefont': {'size': 28},
+    'xaxis': {
+        'title': 'Submission Title',
+        'titlefont': {'size': 24},
+        'tickfont': {'size': 14},
+    },
+    'yaxis': {
+        'title': 'Comments',
+        'titlefont': {'size': 24},
+        'tickfont': {'size': 14},
+    },
+}
+
+fig = {'data':data, 'layout':my_layout}
+offline.plot(fig, filename='hackernews_submissions.html')
