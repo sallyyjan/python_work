@@ -33,9 +33,10 @@ for submission_id in submission_ids[:30]:
         'title': response_dict['title'],
         'hn_link': f"http://news.ycombinator.com/item?id={submission_id}",
         'comments': comments,
-    }
+        'id': submission_id,
+        }
 
-    submission_dicts.append(submission_dict)
+        submission_dicts.append(submission_dict)
 
 # Sort based on 'comments' value
 submission_dicts = sorted(submission_dicts, key=itemgetter('comments'), 
@@ -48,18 +49,21 @@ for submission_dict in submission_dicts:
     print(f"Comments: {submission_dict['comments']}")
 
 # Extract information to visualize
-links, comments = [], []
+ids, links, comments = [], [], []
 for submission_dict in submission_dicts:
-    link = f"<a href='{submission_dict['hn_link']}'>{submission_dict['title']}<\a>"
+    ids.append(str(submission_dict['id']))
+
+    link = f"<a href='{submission_dict['hn_link']}'>{submission_dict['title']}</a>"
     links.append(link)
 
     comments.append(submission_dict['comments'])
 
 
 # Create visualization
+# TODO: shorten x axis labels, change marker customization
 data = [{
     'type': 'bar',
-    'x': links,
+    'x': ids,
     'y': comments,
     'hovertext': links,
     'marker': {
@@ -69,10 +73,10 @@ data = [{
     'opacity': 0.6,
 }]
 my_layout = {
-    'title': 'Top 30 Most-Commented Submissions on Hacker News',
+    'title': 'Top Most-Commented Submissions on Hacker News',
     'titlefont': {'size': 28},
     'xaxis': {
-        'title': 'Submission Title',
+        'title': 'Submission ID',
         'titlefont': {'size': 24},
         'tickfont': {'size': 14},
     },
