@@ -1,0 +1,7 @@
+# Learning Log
+
+A web app allowing users to create log entries of their learning progress for 
+a specific topic. Users can read and edit their entires.
+
+The homepage will provide a description of the web app and allow users to 
+register or log in.
