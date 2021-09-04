@@ -60,7 +60,7 @@ for submission_dict in submission_dicts:
 
 
 # Create visualization
-# TODO: shorten x axis labels, change marker customization
+# TODO: change hovertext format to make links more visible
 data = [{
     'type': 'bar',
     'x': ids,
